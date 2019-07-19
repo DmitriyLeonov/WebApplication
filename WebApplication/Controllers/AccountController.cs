@@ -11,7 +11,7 @@ namespace WebApplication.Controllers
     [RoutePrefix("accounts")]
     public class AccountController : ApiController
     {
-        [System.Web.Http.AcceptVerbs("GET", "POST", "PUT", "DELETE")]
+        
         [Route("")]
         public IEnumerable<Account> GetAccounts()
         {
@@ -24,23 +24,22 @@ namespace WebApplication.Controllers
             return AccountRepo.Current.GetAccountById(accountId);
         }
 
-        [Route("postAccount/{account:int}")]
-        [HttpPost]
-        public Account PostAccount(int account)
+        [Route("post/{account:int}")]
+        public Account Post(int account)
         {
             return AccountRepo.Current.CreateAcount(account);
         }
 
-        [Route("putAccount/{accountId:int}")]
-        [HttpPut]
-        public bool PutAccount(int accountId)
+        
+        [Route("put/{accountId:int}")]
+        public bool Put(int accountId)
         {
             return AccountRepo.Current.UpdateAccount(accountId);
         }
 
-        [Route("account/{accountId:int}")]
-        [HttpDelete]
-        public void DeleteAccount(int accountId)
+        
+        [Route("delete/{accountId:int}")]
+        public void Delete(int accountId)
         {
             AccountRepo.Current.RemoveAccount(accountId);
         }

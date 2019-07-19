@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace WebApplication.Models
 {
@@ -31,6 +32,7 @@ namespace WebApplication.Models
             return accounts.Where(_=>_.AccountId == id).FirstOrDefault();
         }
 
+        [HttpPost]
         public Account CreateAcount(int accountId)
         {
             Account account = new Account
@@ -40,6 +42,7 @@ namespace WebApplication.Models
             return account;
         }
 
+        [HttpDelete]
         public void RemoveAccount(int accountId)
         {
             Account account = GetAccountById(accountId);
@@ -47,6 +50,7 @@ namespace WebApplication.Models
                 accounts.Remove(account);
         }
 
+        [HttpPut]
         public bool UpdateAccount(int accountId)
         {
             Account account = GetAccountById(accountId);
