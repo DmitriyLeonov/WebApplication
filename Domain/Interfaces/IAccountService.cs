@@ -11,5 +11,8 @@ namespace WebApplication.Domain.Interfaces
     {
         IList<DomainAccount> SearchAccounts(SearchAccountFilter filter);
         DomainAccount GetAccount(int accountId);
+        DomainAccount Post(int account);
+        bool Put(int accountId);
+        void Delete(int accountId);
     }
 }

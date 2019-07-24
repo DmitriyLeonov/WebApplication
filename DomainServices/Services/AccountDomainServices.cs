@@ -19,7 +19,22 @@ namespace WebApplication.DomainServices.Services
             _accountRepository = accountRepository;
         }
 
+        public void Delete(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
         public DomainAccount GetAccount(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DomainAccount Post(int account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Put(int accountId)
         {
             throw new NotImplementedException();
         }

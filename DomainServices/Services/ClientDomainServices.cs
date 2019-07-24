@@ -19,7 +19,17 @@ namespace DomainServices.Services
             _clientRepository = clientRepository;
         }
 
+        public void Delete(int ClientId)
+        {
+            throw new NotImplementedException();
+        }
+
         public DomainClient GetClient(int clientId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Put(int ClientId)
         {
             throw new NotImplementedException();
         }
@@ -33,6 +43,11 @@ namespace DomainServices.Services
 
             var clients = _clientRepository.GetClients(filter.Limit, filter.Offset);
             return clients.Select(_=>_.toDomain()).ToList();
+        }
+
+        DomainClient IClientServices.Post(int Client)
+        {
+            throw new NotImplementedException();
         }
     }
 }

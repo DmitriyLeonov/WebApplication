@@ -11,5 +11,8 @@ namespace WebApplication.Domain.Interfaces
     {
         IList<DomainClient> SearchClients(SearchClientFilter filter);
         DomainClient GetClient(int clientId);
+        DomainClient Post(int Client);
+        bool Put(int ClientId);
+        void Delete(int ClientId);
     }
 }

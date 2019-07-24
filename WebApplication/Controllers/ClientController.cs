@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication.Domain.Interfaces;
+using WebApplication.Domain.Models;
+using WebApplication.Mappers;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
@@ -11,34 +14,53 @@ namespace WebApplication.Controllers
     [RoutePrefix("clients")]
     public class ClientController : ApiController
     {
-        [Route("")]
-        public IEnumerable<Client> GetClients()
+        public readonly IClientServices _clientService;
+
+        public ClientController(IClientServices clientService)
         {
-            return ClientRepo.Current.GetAllClients();
+            _clientService = clientService;
+        }
+        
+        [HttpGet, Route("")]
+        public List<Client> Get([FromUri] GetRequest request)
+        {
+            if (request == null)
+                request = new GetRequest();
+            var Clients = _clientService.SearchClients(new SearchClientFilter()
+              {  
+                Limit = request.Limit ?? 3,
+                Offset = request.Offset ??0
+              });
+            return Clients.Select(_=>_.ToClientModel()).ToList();
         }
 
-        [Route("{accountId:int}")]
-        public Client GetClient(int accountId)
+        [Route("{ClientId:int}")]
+        public Client GetClient(int ClientId)
         {
-            return ClientRepo.Current.GetClient(accountId);
+            var Client = _clientService.GetClient(ClientId);
+            return Client.ToClientModel();
         }
 
-        [Route("post/{accountId:int}")]
-        public Client Post(int accountId)
+        [Route("post/{Client:int}")]
+        public Client Post(int Client)
         {
-            return ClientRepo.Current.CreateClient(accountId);
+            var Clients = _clientService.Post(Client);
+            return Clients.ToClientModel();
         }
 
-        [Route("put/{accountId:int}")]
-        public bool Put(int accountId)
+        
+        [Route("put/{ClientId:int}")]
+        public bool Put(int ClientId)
         {
-            return ClientRepo.Current.UpdateClient(accountId);
+            var Client = _clientService.Put(ClientId);
+            return Client;
         }
 
-        [Route("delete/{accountId:int}")]
-        public void Delete(int accountId)
+        
+        [Route("delete/{ClientId:int}")]
+        public void Delete(int ClientId)
         {
-            ClientRepo.Current.DeleteClient(accountId);
+            _clientService.Delete(ClientId);
         }
     }
 }
